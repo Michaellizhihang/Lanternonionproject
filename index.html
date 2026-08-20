@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lantern Onion — 私密浏览。自由探索。</title>
+    <style>
+        :root {
+            --purple-dark: #3d1e4d;
+            --purple-main: #5a3d6e;
+            --purple-light: #7b5a91;
+            --yellow: #ffc107;
+            --yellow-hover: #e6ac00;
+            --text-white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-gray: #555555;
+            --bg-white: #ffffff;
+            --bg-light: #f8f5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--purple-main);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-white);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--text-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .donate-btn {
+            background: var(--yellow);
+            color: var(--text-dark);
+            padding: 8px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .donate-btn:hover {
+            background: var(--yellow-hover);
+        }
+
+        .lang-switch {
+            background: rgba(255,255,255,0.15);
+            color: var(--text-white);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-white);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--purple-main);
+            color: var(--text-white);
+            text-align: center;
+            padding: 100px 24px 120px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3vw, 22px);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .download-btn {
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.6);
+            color: var(--text-white);
+            padding: 14px 36px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--text-white);
+        }
+
+        /* Features */
+        .features {
+            background: var(--bg-white);
+            padding: 80px 24px;
+        }
+
+        .feature {
+            max-width: 1000px;
+            margin: 0 auto 100px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .feature:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-img {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-img svg {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h2 {
+            color: var(--purple-main);
+            font-size: 28px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .feature-text p {
+            color: var(--text-gray);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        /* About */
+        .about {
+            background: var(--bg-white);
+            padding: 40px 24px 100px;
+            text-align: center;
+        }
+
+        .about-label {
+            color: var(--purple-main);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .about h2 {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: clamp(24px, 5vw, 42px);
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        .about a {
+            color: var(--purple-main);
+            text-decoration: none;
+            border-bottom: 2px solid var(--purple-main);
+        }
+
+        /* Download Section */
+        .download-section {
+            background: var(--purple-main);
+            color: var(--text-white);
+            padding: 100px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-section::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .download-section::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 80px;
+            width: 120px;
+            height: 120px;
+            border: 3px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .download-section h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-section p {
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-size: 18px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-btn-solid {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-white);
+            color: var(--purple-main);
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            border: none;
+        }
+
+        .download-btn-solid:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--purple-main);
+            color: var(--text-white);
+            padding: 60px 24px 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        .mission h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .mission p {
+            opacity: 0.85;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 16px;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .subscribe {
+            max-width: 1000px;
+            margin: 50px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .subscribe h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .subscribe p {
+            opacity: 0.8;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .subscribe-btn {
+            background: rgba(0,0,0,0.3);
+            color: var(--text-white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .search-box {
+            max-width: 1000px;
+            margin: 30px auto 0;
+        }
+
+        .search-box h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: var(--text-white);
+            font-size: 14px;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .copyright {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .copyright a {
+            color: var(--text-white);
+        }
+
+        /* Language切换 - 修复版 */
+        .lang-en {
+            display: none;
+        }
+        .lang-en-block {
+            display: none;
+        }
+
+        body.en .lang-zh {
+            display: none;
+        }
+        body.en .lang-zh-block {
+            display: none;
+        }
+        body.en .lang-en {
+            display: inline;
+        }
+        body.en .lang-en-block {
+            display: block;
+        }
+
+        /* 针对按钮等特殊元素 */
+        body.en .donate-btn.lang-en {
+            display: inline-block;
+        }
+        body.en .download-btn.lang-en {
+            display: inline-block;
+        }
+        body.en .subscribe-btn.lang-en {
+            display: inline-block;
+        }
+        body.en .footer-links a.lang-en {
+            display: inline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature,
+            .feature:nth-child(even) {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero {
+                padding: 60px 20px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-icon">🧅</div>
+            <span>Lantern Onion</span>
+        </a>
+        <div class="header-right">
+            <a href="#" class="donate-btn lang-zh">立即捐赠</a>
+            <a href="#" class="donate-btn lang-en">Donate Now</a>
+            <button class="lang-switch" onclick="toggleLang()">中 / EN</button>
+            <button class="menu-btn">☰</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="lang-zh">私密浏览。<br>自由探索。</h1>
+        <h1 class="lang-en">Private Browsing.<br>Free Exploration.</h1>
+        <p class="lang-zh">保护自己免受追踪和监视，突破网络审查。（这不是Tor，和Tor无关）</p>
+        <p class="lang-en">Protect yourself from tracking and surveillance, bypass internet censorship.(It isn't Tor,none with Tor)</p>
+        <!-- ⬇️ 下载链接1：将 YOUR_DOWNLOAD_URL_HERE 替换为真实的第三方下载链接 ⬇️ -->
+        <a href="YOUR_DOWNLOAD_URL_HERE" target="_blank" class="download-btn lang-zh">下载 Lantern Onion</a>
+        <a href="YOUR_DOWNLOAD_URL_HERE" target="_blank" class="download-btn lang-en">Download Lantern Onion</a>
+    </section>
+
+    <section class="features">
+        <!-- 拦截跟踪器 -->
+        <div class="feature">
+            <div class="feature-img">
+                <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="220" cy="50" r="25" fill="#ffc107"/>
+                    <path d="M80 180 Q60 140 100 120 Q140 100 160 140 Q180 180 140 200 Q100 220 80 180" fill="#7b5a91"/>
+                    <path d="M120 160 Q100 120 140 100 Q180 80 200 120 Q220 160 180 180 Q140 200 120 160" fill="#5a3d6e"/>
+                    <ellipse cx="150" cy="190" rx="60" ry="15" fill="#e8d5f2"/>
+                    <path d="M200 80 Q220 60 240 70" stroke="#333" stroke-width="2" fill="none"/>
+                    <path d="M210 85 Q230 65 250 75" stroke="#333" stroke-width="2" fill="none"/>
+                    <circle cx="100" cy="170" r="8" fill="#ffc107"/>
+                    <path d="M60 200 L90 170" stroke="#5a3d6e" stroke-width="3"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h2 class="lang-zh">拦截跟踪器</h2>
+                <h2 class="lang-en">Block Trackers</h2>
+                <p class="lang-zh">Lantern Onion 隔离用户访问的每个网站，因此第三方跟踪器和广告将无法跟踪用户。浏览器关闭时，将自动清除所有 cookie。浏览记录也将被清除。</p>
+                <p class="lang-en">Lantern Onion isolates every website you visit, so third-party trackers and ads cannot follow you. When the browser closes, all cookies are automatically cleared. Browsing history is also erased.</p>
+            </div>
+        </div>
+
+        <!-- 抵抗监视 -->
+        <div class="feature">
+            <div class="feature-img">
+                <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="150" cy="240" rx="80" ry="20" fill="#e8d5f2"/>
+                    <rect x="110" y="80" width="80" height="120" rx="40" fill="#5a3d6e"/>
+                    <circle cx="150" cy="60" r="35" fill="#7b5a91"/>
+                    <ellipse cx="150" cy="55" rx="25" ry="20" fill="#3d1e4d"/>
+                    <circle cx="140" cy="50" r="5" fill="#ffc107"/>
+                    <circle cx="160" cy="50" r="5" fill="#ffc107"/>
+                    <path d="M145 65 Q150 70 155 65" stroke="#fff" stroke-width="2" fill="none"/>
+                    <path d="M100 100 Q80 80 70 100 Q60 120 80 130" stroke="#7b5a91" stroke-width="3" fill="none"/>
+                    <path d="M200 100 Q220 80 230 100 Q240 120 220 130" stroke="#7b5a91" stroke-width="3" fill="none"/>
+                    <circle cx="70" cy="90" r="8" fill="#ffc107"/>
+                    <circle cx="230" cy="90" r="8" fill="#ff6b9d"/>
+                    <circle cx="90" cy="70" r="6" fill="#ff6b9d"/>
+                    <circle cx="210" cy="70" r="6" fill="#ffc107"/>
+                    <circle cx="80" cy="110" r="5" fill="#ff6b9d"/>
+                    <circle cx="220" cy="110" r="5" fill="#ffc107"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h2 class="lang-zh">抵抗监视</h2>
+                <h2 class="lang-en">Resist Surveillance</h2>
+                <p class="lang-zh">Lantern Onion 可防止网络监视者获悉你访问的网站。任何监视你浏览习惯的人只能看到你正在使用 Lantern Onion。</p>
+                <p class="lang-en">Lantern Onion prevents network observers from learning what websites you visit. Anyone monitoring your browsing habits can only see that you are using Lantern Onion.</p>
+            </div>
+        </div>
+
+        <!-- 抵抗指纹分析 -->
+        <div class="feature">
+            <div class="feature-img">
+                <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="180" width="200" height="10" rx="5" fill="#5a3d6e"/>
+                    <rect x="80" y="140" width="10" height="50" rx="5" fill="#7b5a91"/>
+                    <rect x="210" y="140" width="10" height="50" rx="5" fill="#7b5a91"/>
+                    <ellipse cx="150" cy="120" rx="50" ry="60" fill="#ff6b9d"/>
+                    <ellipse cx="150" cy="120" rx="35" ry="45" fill="#5a3d6e"/>
+                    <circle cx="135" cy="100" r="12" fill="#7b5a91"/>
+                    <circle cx="165" cy="100" r="12" fill="#7b5a91"/>
+                    <circle cx="135" cy="100" r="6" fill="#3d1e4d"/>
+                    <circle cx="165" cy="100" r="6" fill="#3d1e4d"/>
+                    <circle cx="135" cy="100" r="3" fill="#ffc107"/>
+                    <circle cx="165" cy="100" r="3" fill="#ffc107"/>
+                    <path d="M145 125 Q150 130 155 125" stroke="#fff" stroke-width="2" fill="none"/>
+                    <rect x="120" y="60" width="60" height="30" rx="15" fill="#5a3d6e"/>
+                    <ellipse cx="150" cy="45" rx="40" ry="20" fill="#7b5a91"/>
+                    <ellipse cx="150" cy="40" rx="25" ry="12" fill="#3d1e4d"/>
+                    <circle cx="140" cy="38" r="4" fill="#ffc107"/>
+                    <circle cx="160" cy="38" r="4" fill="#ffc107"/>
+                    <path d="M100 180 Q90 160 110 150 Q130 140 140 160" stroke="#5a3d6e" stroke-width="3" fill="none"/>
+                    <path d="M200 180 Q210 160 190 150 Q170 140 160 160" stroke="#5a3d6e" stroke-width="3" fill="none"/>
+                    <circle cx="90" cy="170" r="8" fill="#ffc107"/>
+                    <circle cx="210" cy="170" r="8" fill="#ffc107"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h2 class="lang-zh">抵抗指纹分析</h2>
+                <h2 class="lang-en">Resist Fingerprinting</h2>
+                <p class="lang-zh">Lantern Onion 旨在令所有用户看起来一样，从而让基于浏览器和设备信息的指纹分析变得更加困难。</p>
+                <p class="lang-en">Lantern Onion is designed to make all users look the same, making browser and device-based fingerprinting much more difficult.</p>
+            </div>
+        </div>
+
+        <!-- 多层加密 -->
+        <div class="feature">
+            <div class="feature-img">
+                <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="150" cy="230" rx="80" ry="15" fill="#e8d5f2"/>
+                    <rect x="100" y="80" width="100" height="120" rx="10" fill="#5a3d6e"/>
+                    <rect x="110" y="90" width="80" height="30" rx="5" fill="#7b5a91"/>
+                    <rect x="110" y="130" width="80" height="30" rx="5" fill="#7b5a91"/>
+                    <rect x="110" y="170" width="80" height="20" rx="5" fill="#7b5a91"/>
+                    <rect x="130" y="50" width="40" height="40" rx="5" fill="#ffc107"/>
+                    <rect x="135" y="55" width="30" height="10" rx="2" fill="#e6ac00"/>
+                    <polygon points="150,20 160,50 140,50" fill="#ff6b9d"/>
+                    <polygon points="120,40 130,60 110,60" fill="#ffc107"/>
+                    <polygon points="180,40 190,60 170,60" fill="#ff6b9d"/>
+                    <path d="M80 120 L100 100" stroke="#5a3d6e" stroke-width="3"/>
+                    <path d="M220 120 L200 100" stroke="#5a3d6e" stroke-width="3"/>
+                    <circle cx="75" cy="125" r="6" fill="#ffc107"/>
+                    <circle cx="225" cy="125" r="6" fill="#ff6b9d"/>
+                    <path d="M90 160 L70 150" stroke="#5a3d6e" stroke-width="2"/>
+                    <path d="M210 160 L230 150" stroke="#5a3d6e" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h2 class="lang-zh">多层加密</h2>
+                <h2 class="lang-en">Multi-Layer Encryption</h2>
+                <p class="lang-zh">你的流量通过 Lantern Onion 网络时将经过三次转发和加密。该网络由数以千计的志愿者运行的服务器组成，而这些服务器称作 Lantern Onion 中继。</p>
+                <p class="lang-en">Your traffic is relayed and encrypted three times as it passes over the Lantern Onion network. The network is comprised of thousands of volunteer-run servers known as Lantern Onion relays.</p>
+            </div>
+        </div>
+
+        <!-- 自由浏览 -->
+        <div class="feature">
+            <div class="feature-img">
+                <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="150" cy="210" rx="90" ry="15" fill="#e8d5f2"/>
+                    <circle cx="80" cy="60" r="20" fill="#ffc107"/>
+                    <path d="M100 80 Q120 60 140 80" stroke="#333" stroke-width="2" fill="none"/>
+                    <path d="M110 85 Q130 65 150 85" stroke="#333" stroke-width="2" fill="none"/>
+                    <circle cx="150" cy="140" r="50" fill="none" stroke="#5a3d6e" stroke-width="4"/>
+                    <circle cx="150" cy="140" r="35" fill="none" stroke="#7b5a91" stroke-width="3"/>
+                    <circle cx="150" cy="140" r="20" fill="#5a3d6e"/>
+                    <circle cx="150" cy="140" r="10" fill="#ff6b9d"/>
+                    <rect x="145" y="90" width="10" height="30" fill="#5a3d6e"/>
+                    <rect x="110" y="135" width="30" height="10" fill="#5a3d6e"/>
+                    <rect x="160" y="135" width="30" height="10" fill="#5a3d6e"/>
+                    <path d="M120 180 Q150 200 180 180" stroke="#5a3d6e" stroke-width="3" fill="none"/>
+                    <circle cx="100" cy="100" r="5" fill="#7b5a91"/>
+                    <circle cx="200" cy="100" r="5" fill="#7b5a91"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h2 class="lang-zh">自由浏览</h2>
+                <h2 class="lang-en">Browse Freely</h2>
+                <p class="lang-zh">使用 Lantern Onion，你可以自由访问被本地网络屏蔽的网站。</p>
+                <p class="lang-en">With Lantern Onion, you can freely access websites blocked by your local network.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-label lang-zh">关于我们</div>
+        <div class="about-label lang-en">About Us</div>
+        <h2 class="lang-zh">我们坚信每个人应能够探索网络并享有隐私权。我们是 Lantern Onion Project，一家致力于推动数字隐私与网络自由的开源组织。我们利用自由软件和开放网络来推动人权的发展，以及捍卫你的在线隐私。<a href="#">了解我们的团队</a></h2>
+        <h2 class="lang-en">We believe everyone should be able to explore the internet with privacy. We are the Lantern Onion Project, an open-source organization dedicated to advancing digital privacy and internet freedom. We use free software and open networks to promote human rights and defend your online privacy. <a href="#">Learn about our team</a></h2>
+    </section>
+
+    <section class="download-section">
+        <h2 class="lang-zh">下载 Lantern Onion</h2>
+        <h2 class="lang-en">Download Lantern Onion</h2>
+        <p class="lang-zh">下载 Lantern Onion，没有跟踪、监视或审查，真正的隐私浏览体验。</p>
+        <p class="lang-en">Download Lantern Onion for tracking-free, surveillance-free, censorship-free private browsing.</p>
+        <!-- ⬇️ 下载链接2：将 YOUR_DOWNLOAD_URL_HERE 替换为真实的第三方下载链接 ⬇️ -->
+        <a href="YOUR_DOWNLOAD_URL_HERE" target="_blank" class="download-btn-solid">
+            <span class="lang-zh">下载 Lantern Onion ⬇</span>
+            <span class="lang-en">Download Lantern Onion ⬇</span>
+        </a>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="mission">
+                <h3 class="lang-zh">我们的使命：</h3>
+                <h3 class="lang-en">Our Mission:</h3>
+                <p class="lang-zh">通过创建和部署自由开源的匿名与隐私技术，支持其不受限制的可及性与使用，并推动大众及学界对这些技术的理解，来促进人权和自由。</p>
+                <p class="lang-en">To advance human rights and freedoms by creating and deploying free and open source anonymity and privacy technologies, supporting their unrestricted availability and use, and furthering their scientific and popular understanding.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#" class="lang-zh">招聘</a><a href="#" class="lang-en">Jobs</a></li>
+                <li><a href="#" class="lang-zh">博客</a><a href="#" class="lang-en">Blog</a></li>
+                <li><a href="#" class="lang-zh">联系我们</a><a href="#" class="lang-en">Contact</a></li>
+                <li><a href="#" class="lang-zh">新闻</a><a href="#" class="lang-en">Press</a></li>
+                <li><a href="#">PrivChat</a></li>
+                <li><a href="#" class="donate-btn" style="display:inline-block;margin-top:8px;"><span class="lang-zh">立即捐赠</span><span class="lang-en">Donate Now</span></a></li>
+            </ul>
+        </div>
+
+        <div class="subscribe">
+            <h4 class="lang-zh">订阅新闻简报</h4>
+            <h4 class="lang-en">Subscribe to Newsletter</h4>
+            <p class="lang-zh">获取 Lantern Onion Project 每月更新和工作机会的消息：</p>
+            <p class="lang-en">Get monthly updates and job openings from Lantern Onion Project:</p>
+            <button class="subscribe-btn lang-zh">订阅</button>
+            <button class="subscribe-btn lang-en">Subscribe</button>
+        </div>
+
+        <div class="search-box">
+            <h4 class="lang-zh">搜索</h4>
+            <h4 class="lang-en">Search</h4>
+            <input type="text" placeholder="使用 DuckDuckGo 搜索本站..." class="lang-zh">
+            <input type="text" placeholder="Search this site using DuckDuckGo..." class="lang-en">
+        </div>
+
+        <div class="copyright">
+            <span class="lang-zh">有关商标、版权声明和第三方使用规则，请参阅<a href="#">商标政策</a>。</span>
+            <span class="lang-en">For trademark, copyright, and third-party usage rules, see our <a href="#">Trademark Policy</a>.</span>
+            <span>简体中文 (zh-CN) ▾</span>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLang() {
+            document.body.classList.toggle('en');
+        }
+    </script>
+</body>
+</html>
